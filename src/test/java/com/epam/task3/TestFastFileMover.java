@@ -19,7 +19,7 @@ public class TestFastFileMover {
      */
     private static final String PATH_TO_DIR = "C:\\run\\";
 
-    private static final String pathOrigin = "C:\\run\\fileKB";
+    private static final String pathOrigin = PATH_TO_DIR + "fileKB";
     private static final String pathCopied = "C:\\run2\\fileKB";
 
     /**
