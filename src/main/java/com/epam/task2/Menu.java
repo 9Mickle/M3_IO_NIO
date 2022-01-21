@@ -4,9 +4,8 @@ package com.epam.task2;
  * GUI Меню.
  */
 public class Menu {
-    public static void getMenu(String path) {
+    public static void printMenu() {
         System.out.print("\n---------Menu---------" +
-                "\nYou are here now: " + path +
                 "\nSelect one of the functions: " +
                 "\n1) - Search for the file name with the maximum number of letters ‘s’ in the name, display the path to it." +
                 "\n2) - Print Top-5 largest files (by size in bytes)." +
@@ -16,7 +15,7 @@ public class Menu {
                 "\nYour choice: ");
     }
 
-    public static void getPath(String path) {
-        System.out.print("\nEnter the path: " + path);
+    public static void printPath() {
+        System.out.print("\nEnter the path: C:\\");
     }
 }

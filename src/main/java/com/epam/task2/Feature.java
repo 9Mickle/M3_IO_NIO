@@ -22,7 +22,7 @@ public class Feature {
      * а не только букву 's'.
      * Функция нужна для поиска имени файла с максимальным количеством букв "literal" в названии.
      * Результат работы функции заносим в файл info.txt, который находится в (resources/folderTask2).
-     *
+     * <p>
      * Проходим по всем файлам и папкам в директории и ищем файл удовлетворяющий условию.
      *
      * @param path    путь к директории.
@@ -32,7 +32,7 @@ public class Feature {
         Optional<Path> max = Files
                 .walk(Path.of(path), Integer.MAX_VALUE)
                 .filter(fileName -> fileName.toString().contains(literal))
-                .max((o1, o2) -> (int) (numberOfLitterInWord(literal, o1) - numberOfLitterInWord(literal, o2)));
+                .max(Comparator.comparingLong(o -> numberOfLitterInWord(literal, o)));
 
         if (max.isPresent()) {
             Files.write(Path.of(PATH_TO_FILE), max.get().toString().getBytes(StandardCharsets.UTF_8));
@@ -112,11 +112,11 @@ public class Feature {
      * @return кол-во букв.
      */
     private static long numberOfLitterInWord(String ch, Path path) {
-        return Arrays.stream(path
+        return path
                 .getFileName()
                 .toString()
-                .split(""))
-                .filter(c -> c.contains(ch))
+                .chars()
+                .filter(c -> c == ch.codePointAt(0))
                 .count();
     }
 

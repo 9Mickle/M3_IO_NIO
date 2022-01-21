@@ -14,30 +14,34 @@ public class DiskAnalyzer {
     private static final Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException {
+        checkPath();
+    }
 
-        //Будем принимать путь к файлам на диске С.
-        String path = "C:\\";
+    /**
+     * Проверка пути введеного пользователем.
+     * Если путь не явялется директорией, то просим повторить ввод, иначе пользлватель выбирает функцию.
+     */
+    public static void checkPath() throws IOException {
+        Menu.printPath();
+        String path = "C:\\" + sc.next();
+        if (!Files.isDirectory(Path.of(path))) {
+            System.out.print("\nEnter the path to the file, not the directory! Please, try again.");
+            checkPath();
+        } else {
+            choiceFeature(path);
+        }
+    }
 
-        //Просим пользователя ввести путь.
-        Menu.getPath(path);
-        //Если введнный путь не является директорией, то просим повторить ввод.
-        path = checkPath(path + sc.next());
-
-        //Показываем пользователю меню и просим выбрать одну из функций.
-        Menu.getMenu(path);
-        int userChoice = sc.nextInt();
-
-        //Будем выводить меню до тех пор, пока пользователь не выберет в меню номер 5 - это выход.
-        while (userChoice != 5) {
-            //Проверяем, если пользовтель ввел цифру не из пункта меню, то просим его повторить ввод.
-            if (userChoice > 5 || userChoice < 1) {
-                System.out.print("\nWrong choice! Please, try again." +
-                        "\nEnter: ");
-                userChoice = sc.nextInt();
-            }
-
-            //Функции.
-            switch (userChoice) {
+    /**
+     * Выбор функции.
+     * @param path проверенный путь.
+     */
+    public static void choiceFeature(String path) throws IOException {
+        Scanner sc = new Scanner(System.in);
+        Menu.printMenu();
+        int choice = sc.nextInt();
+        if (choice > 0 && choice < 6) {
+            switch (choice) {
                 case 1: {
                     System.out.print("Enter liter: ");
                     String liter = sc.next();
@@ -61,33 +65,9 @@ public class DiskAnalyzer {
                     break;
                 }
             }
-            path = "C:\\";
-
-            //После выполнении функции снова просим пользователя ввести путь к директории.
-            Menu.getPath(path);
-            path += checkPath(path + sc.next());
-
-            //Показываем меню.
-            Menu.getMenu(path);
-            userChoice = sc.nextInt();
+        } else {
+            System.out.println("\nWrong choice! Please, try again..");
+            choiceFeature(path);
         }
-    }
-
-    /**
-     * Проверка пути введеного пользователем.
-     * Если путь не явялется директорией, то просим повторить ввод, иначе возвращаем путь.
-     *
-     * @param path путь.
-     * @return проверенный путь.
-     */
-    public static String checkPath(String path) {
-        while (!Files.isDirectory(Path.of(path))) {
-            System.out.print("\nEnter the path to the file, not the directory! Please, try again.");
-            path = "C:\\";
-
-            System.out.print("\nEnter: " + path);
-            path += sc.next();
-        }
-        return path;
     }
 }
