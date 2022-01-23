@@ -1,5 +1,1 @@
-C:\run\fileGB
-C:\run\fileMB10
-C:\run\fileKB100
-C:\run\ffffile
-C:\run\fileKB
+File not found

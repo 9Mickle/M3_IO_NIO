@@ -14,19 +14,20 @@ public class DiskAnalyzer {
     private static final Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException {
-        checkPath();
+        mainFunction();
     }
 
     /**
-     * Проверка пути введеного пользователем.
-     * Если путь не явялется директорией, то просим повторить ввод, иначе пользлватель выбирает функцию.
+     * Основная функция.
+     * -- Проверка пути введеного пользователем.
+     * -- Если путь не явялется директорией, то просим повторить ввод, иначе пользлватель выбирает функцию.
      */
-    public static void checkPath() throws IOException {
+    public static void mainFunction() throws IOException {
         Menu.printPath();
         String path = "C:\\" + sc.next();
         if (!Files.isDirectory(Path.of(path))) {
             System.out.print("\nEnter the path to the file, not the directory! Please, try again.");
-            checkPath();
+            mainFunction();
         } else {
             choiceFeature(path);
         }
